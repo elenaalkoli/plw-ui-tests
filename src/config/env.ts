@@ -1,0 +1,1 @@
+export const DEMOQA_BASE_URL = process.env.DEMOQA_BASE_URL!;
