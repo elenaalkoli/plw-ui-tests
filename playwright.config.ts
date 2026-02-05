@@ -27,9 +27,10 @@ export default defineConfig({
         },
       },
     ],
-  ], 
+  ],
 
-  use: { //url from .env
+  use: {
+    //url from .env
     baseURL: process.env.DEMOQA_BASE_URL,
     trace: "on-first-retry",
     screenshot: "only-on-failure",

@@ -18,9 +18,6 @@
     "allowSyntheticDefaultImports": true,
     "resolveJsonModule": true,
 
-    // decorators
-    "experimentalDecorators": true,
-
     // output
     "outDir": "./dist",
     "sourceMap": true,
@@ -30,7 +27,7 @@
     // strict-mode
     "strict": true,
     "noUncheckedIndexedAccess": true,
-    "exactOptionalPropertyTypes": true,
+    // "exactOptionalPropertyTypes": true,
     "skipLibCheck": true,
 
     // other
