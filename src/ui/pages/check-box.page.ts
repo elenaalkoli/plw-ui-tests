@@ -23,9 +23,9 @@ export class CheckBoxPage extends DemoqaPage {
     await checkboxLabel.click();
   }
 
-  @logStep("Мerify сheck result")
-  async verifyCheckResult(expected: string) {
+  @logStep("Get check result")
+  async getResultText(): Promise<string> {
     await this.result.waitFor({ state: "visible", timeout: 5000 });
-    await expect(this.result).toContainText(expected);
+    return (await this.result.textContent()) ?? "";
   }
 }
