@@ -10,11 +10,11 @@ export class TextBoxPage extends DemoqaPage {
   readonly permanentAddressInput = this.form.locator("#permanentAddress");
   readonly submitButton = this.page.locator("#submit");
   readonly output = this.form.locator("#output");
-  
-  readonly nameOutput = this.output.locator('#name');
-  readonly emailOutput = this.output.locator('#email');
-  readonly currentAddressOutput = this.output.locator('#currentAddress');
-  readonly permanentAddressOutput = this.output.locator('#permanentAddress');
+
+  readonly nameOutput = this.output.locator("#name");
+  readonly emailOutput = this.output.locator("#email");
+  readonly currentAddressOutput = this.output.locator("#currentAddress");
+  readonly permanentAddressOutput = this.output.locator("#permanentAddress");
 
   readonly uniqueElement = this.title;
 
