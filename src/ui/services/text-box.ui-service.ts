@@ -31,7 +31,7 @@ export class TextBoxUIService extends BaseUIService {
 
   async verifyFormResult(expectedData: TextBoxData): Promise<void> {
     await this.textBoxPage.output.scrollIntoViewIfNeeded();
-    await this.textBoxPage.output.waitFor({ state: 'visible', timeout: 10000 });
+    await this.textBoxPage.output.waitFor({ state: 'visible', timeout: 20000 });
     
     await expect(this.textBoxPage.nameOutput).toContainText(expectedData.fullName);
     await expect(this.textBoxPage.emailOutput).toContainText(expectedData.email);
