@@ -8,6 +8,7 @@
     "test:ui": "playwright test tests/ui",
     "test:headed": "playwright test --headed",
     "test:debug": "playwright test --debug",
+    "ui-mode": "npx playwright test --ui",
     "lint": "eslint . --ext .ts",
     "lint:fix": "eslint . --ext .ts --fix",
     "prettier": "prettier --check .",
