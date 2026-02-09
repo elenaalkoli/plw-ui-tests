@@ -25,8 +25,8 @@ export const test = base.extend<UIPages>({
   textBoxUIService: async ({ page }, use) => {
     await use(new TextBoxUIService(page));
   },
-  checkBoxUIService: async ({ checkBoxPage }, use) => {
-    await use(new CheckBoxUIService(checkBoxPage));
+  checkBoxUIService: async ({ page }, use) => {
+    await use(new CheckBoxUIService(page));
   },
 });
 

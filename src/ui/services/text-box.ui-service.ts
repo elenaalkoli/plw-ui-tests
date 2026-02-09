@@ -15,10 +15,6 @@ export class TextBoxUIService extends BaseUIService {
 
   async fillAndSubmitForm(data?: TextBoxData): Promise<TextBoxData> {
     const formData = data || generateTextBoxData();
-
-    await this.textBoxPage.open(UI_ROUTES.TEXT_BOX);
-    await this.textBoxPage.waitForOpened();
-
     await this.textBoxPage.fullNameInput.fill(formData.fullName);
     await this.textBoxPage.emailInput.fill(formData.email);
     await this.textBoxPage.currentAddressInput.fill(formData.currentAddress);
