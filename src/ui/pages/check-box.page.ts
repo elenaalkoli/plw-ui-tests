@@ -11,7 +11,8 @@ export class CheckBoxPage extends DemoqaPage {
   readonly uniqueElement = this.title;
 
   @logStep("Expand all checkboxes")
-  async expandAll() {
+  private async expandAll() {
+    await this.expandAllButton.waitFor({ state: "visible" });
     await this.expandAllButton.click();
   }
 
