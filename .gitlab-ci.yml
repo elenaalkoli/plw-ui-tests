@@ -35,9 +35,9 @@ ui-tests:
 # Allure
 allure-report:
   stage: report
-  image: node:20
+  image: eclipse-temurin:17-jre-alpine
   script:
-    - npm ci
+    - apk add --no-cache nodejs npm
     - npm install -g allure-commandline
     - npx allure generate allure-results/ -o allure-report --clean
   artifacts:
