@@ -2,7 +2,7 @@ stages:
   - test
   - report
 
-# TS check 
+# TS check
 typescript-check:
   stage: test
   image: node:22
@@ -24,18 +24,18 @@ ui-tests:
     - npm run test:ui
   artifacts:
     paths:
-      - allure-results/     
+      - allure-results/
       - playwright-report/
     expire_in: 30 days
   parallel: 3
   cache:
     paths:
-      - node_modules/git push origin ci
+      - node_modules/
 
-# Allure 
+# Allure
 allure-report:
   stage: report
-  image: node:20 
+  image: node:20
   script:
     - npm ci
     - npm install -g allure-commandline
