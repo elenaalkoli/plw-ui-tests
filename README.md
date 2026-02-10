@@ -117,13 +117,13 @@ npm run prettier:write
 ├── playwright.config.ts
 ├── package.json
 └── .env 
-
+```
 
 ### 7. CI/CD Pipeline
 
-**Auto-trigger:** push/merge request to `main`
+**Auto-trigger:** push/merge request to `main`  
 
-**Scheduled runs:** ежедневно 10:00 MSK (`0 10 * * *`)
+**Scheduled runs:** ежедневно 10:00 MSK (`0 10 * * *`)  
 
 **Pipeline jobs:**
 - `typescript-check` — TypeScript compilation check
@@ -137,6 +137,4 @@ npm run prettier:write
 **Artifacts:**
 - `allure-results/` — raw Allure data
 - `allure-report/` — HTML report  
-- `playwright-report/` — Playwright HTML
-
-**Pipeline config:** `.gitlab-ci.yml`
+- `playwright-report/` — Playwright
