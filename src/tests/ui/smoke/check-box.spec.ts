@@ -1,5 +1,5 @@
 import { UI_ROUTES } from "config/ui-routes";
-import { test, expect } from "../../fixtures/pages.fixture";
+import { test } from "../../../fixtures/pages.fixture";
 
 test.describe("[UI] [Check-Box] [Smoke]", () => {
   test("should select Classified checkbox and verify result", async ({
