@@ -1,4 +1,3 @@
-import { expect } from "@playwright/test";
 import { DemoqaPage } from "./demoqa.page";
 import { logStep } from "utils/report/logStep.utils";
 

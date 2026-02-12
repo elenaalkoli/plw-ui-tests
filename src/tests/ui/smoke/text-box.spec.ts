@@ -1,5 +1,5 @@
 import { UI_ROUTES } from "config/ui-routes";
-import { test } from "../../fixtures/pages.fixture";
+import { test } from "../../../fixtures/pages.fixture";
 import { generateTextBoxData } from "data/text-box.data";
 
 test.describe("[UI] [Text-Box Form] [Smoke]", () => {

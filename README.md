@@ -116,25 +116,28 @@ npm run prettier:write
 │       └── ui-routes.ts
 ├── playwright.config.ts
 ├── package.json
-└── .env 
+└── .env
 ```
 
 ### 7. CI/CD Pipeline
 
-**Auto-trigger:** push/merge request to `main`  
+**Auto-trigger:** push/merge request to `main`
 
-**Scheduled runs:** ежедневно 10:00 MSK (`0 10 * * *`)  
+**Scheduled runs:** ежедневно 10:00 MSK (`0 10 * * *`)
 
 **Pipeline jobs:**
+
 - `typescript-check` — TypeScript compilation check
-- `ui-tests` — UI tests (parallel: Chromium, Firefox, Webkit)  
+- `ui-tests` — UI tests (parallel: Chromium, Firefox, Webkit)
 - `allure-report` — Allure report generation
 
 **Check results:**
+
 - **CI/CD → Pipelines** — latest runs + artifacts
 - **CI/CD → Schedules** — schedule setup/manual trigger
 
 **Artifacts:**
+
 - `allure-results/` — raw Allure data
-- `allure-report/` — HTML report  
+- `allure-report/` — HTML report
 - `playwright-report/` — Playwright
