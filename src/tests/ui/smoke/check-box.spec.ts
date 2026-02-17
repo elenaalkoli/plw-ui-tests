@@ -1,4 +1,3 @@
-import { UI_ROUTES } from "config/ui-routes";
 import { test } from "../../../fixtures/pages.fixture";
 
 test.describe("[UI] [Check-Box] [Smoke]", () => {
@@ -6,7 +5,7 @@ test.describe("[UI] [Check-Box] [Smoke]", () => {
     checkBoxPage,
     checkBoxUIService,
   }) => {
-    await checkBoxPage.open(UI_ROUTES.CHECKBOX);
+    await checkBoxPage.open();
     await checkBoxPage.selectCheckbox("Classified");
 
     await checkBoxUIService.verifyCheckResult("classified");

@@ -4,8 +4,8 @@ export interface RegistrationFormData {
   firstName: string;
   lastName: string;
   email: string;
-  age: string; // string for input
-  salary: number;
+  age: string; // string for input.fill()
+  salary: string; // string for input.fill()
   department: string;
 }
 
@@ -15,7 +15,7 @@ export function generateRegistrationFormData(): RegistrationFormData {
     lastName: faker.person.lastName(),
     email: faker.internet.email(),
     age: faker.number.int({ min: 18, max: 65 }).toString(),
-    salary: faker.number.int({ min: 30000, max: 150000 }),
+    salary: faker.number.int({ min: 30000, max: 150000 }).toString(),
     department: faker.commerce.department(),
   };
 }
