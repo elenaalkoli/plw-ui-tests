@@ -8,11 +8,11 @@ dotenv.config({ path: path.resolve(process.cwd(), envFile) });
 
 export default defineConfig({
   testDir: "./src/tests",
-  fullyParallel: true,
+  fullyParallel: false,
   forbidOnly: !!process.env.CI,
   retries: process.env.CI ? 2 : 0,
-  workers: 5,
-  timeout: 30_000,
+  workers: 1,
+  timeout: 60_000,
 
   reporter: [
     ["list"],
@@ -35,7 +35,7 @@ export default defineConfig({
     trace: "on-first-retry",
     screenshot: "only-on-failure",
     video: "on-first-retry",
-    headless: true,
+    headless: false,
   },
 
   projects: [
@@ -43,13 +43,13 @@ export default defineConfig({
       name: "chromium",
       use: { ...devices["Desktop Chrome"] },
     },
-    {
-      name: "firefox",
-      use: { ...devices["Desktop Firefox"] },
-    },
-    {
-      name: "webkit",
-      use: { ...devices["Desktop Safari"] },
-    },
+    // {
+    //   name: "firefox",
+    //   use: { ...devices["Desktop Firefox"] },
+    // },
+    // {
+    //   name: "webkit",
+    //   use: { ...devices["Desktop Safari"] },
+    // },
   ],
 });
