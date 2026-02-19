@@ -25,9 +25,10 @@ test.describe("[UI] [Web Tables] [E2E]", () => {
     await webTableUIService.verifyUserUpdated(rowIndex, "150000", "Engineering");
 
     // 4. delete
-    await webTablePage.removeOverlays();
-    await webTablePage.deleteRowByIndex(rowIndex);
+    await webTablePage.clearSearchBox();
+    const deleteRowIndex = await webTablePage.getRowIndexByFirstName(userData.firstName);
+    await webTablePage.deleteRowByIndex(deleteRowIndex);
 
-    await webTableUIService.verifyUserNotExists(rowIndex);
+    await webTableUIService.verifyUserNotExists(userData.firstName);
   });
 });
