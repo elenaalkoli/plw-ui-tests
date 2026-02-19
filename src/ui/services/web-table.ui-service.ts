@@ -31,10 +31,10 @@ export class WebTableUIService extends BaseUIService {
     await expect(this.webTablePage.rowByFirstName(firstName)).toBeVisible();
   }
 
-  async verifyUserNotExists(rowIndex: number): Promise<void> {
+  async verifyUserNotExists(firstName: string): Promise<void> {
     await this.webTablePage.clearSearchBox();
-    await this.page.waitForTimeout(1500);
-    await expect(this.webTablePage.tableRows.nth(rowIndex - 1)).not.toBeVisible();
+    const userRow = this.webTablePage.rowByFirstName(firstName);
+    await expect(userRow).toHaveCount(0);
   }
 
   async verifyUserUpdated(
