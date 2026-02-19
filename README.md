@@ -123,7 +123,7 @@ npm run prettier:write
 
 **Auto-trigger:** push/merge request to `main`
 
-**Scheduled runs:** ежедневно 10:00 MSK (`0 10 * * *`)
+**Scheduled runs:** 10:00 MSK (`0 10 * * *`)
 
 **Pipeline jobs:**
 
