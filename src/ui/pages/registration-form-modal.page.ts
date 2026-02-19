@@ -31,11 +31,9 @@ export class RegistrationFormModal extends BaseModal {
     await this.waitForOpened();
 
     await this.salaryInput.waitFor({ state: "visible" });
-    await this.page.waitForTimeout(100);
     await this.salaryInput.fill(salary, { force: true });
 
     await this.departmentInput.waitFor({ state: "visible" });
-    await this.page.waitForTimeout(100);
     await this.departmentInput.fill(department, { force: true });
   }
 
