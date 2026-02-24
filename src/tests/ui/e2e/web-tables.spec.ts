@@ -9,26 +9,24 @@ test.describe("[UI] [Web Tables] [E2E]", () => {
     await webTablePage.open();
 
     // 1. create
-    const userData = await webTableUIService.fillAndSubmitForm();
-    await webTableUIService.verifyUserCreated(userData.firstName);
+    const { firstName } = await webTableUIService.fillAndSubmitForm();
+    await webTableUIService.verifyUserCreated(firstName);
 
     // 2. seacrh
-    await webTableUIService.searchAndVerifyUser(userData.firstName);
+    await webTableUIService.searchAndVerifyUser(firstName);
     await webTablePage.clearSearchBox();
 
     // 3. update
-    const rowIndex = await webTablePage.getRowIndexByFirstName(userData.firstName);
+    const rowIndex = await webTablePage.getRowIndexByFirstName(firstName);
     await webTablePage.clickEdit(rowIndex);
     await registrationFormModal.updateSalaryAndDepartment("150000", "Engineering");
     await registrationFormModal.clickSubmit();
 
-    await webTableUIService.verifyUserUpdated(userData.firstName, "150000", "Engineering");
+    await webTableUIService.verifyUserUpdated(firstName, "150000", "Engineering");
 
     // 4. delete
-    await webTablePage.clearSearchBox();
-    const deleteRowIndex = await webTablePage.getRowIndexByFirstName(userData.firstName);
-    await webTablePage.deleteRowByIndex(deleteRowIndex);
+    await webTableUIService.deleteRowByFirstName(firstName);
 
-    await webTableUIService.verifyUserNotExists(userData.firstName);
+    await webTableUIService.verifyUserNotExists(firstName);
   });
 });
