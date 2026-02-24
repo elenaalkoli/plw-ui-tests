@@ -38,21 +38,26 @@ export class WebTableUIService extends BaseUIService {
   }
 
   async verifyUserUpdated(
-    rowIndex: number,
+    firstName: string,
     expectedSalary: string,
     expectedDepartment: string
   ): Promise<void> {
     await this.webTablePage.clearSearchBox();
-    await this.page.waitForTimeout(1500);
+    const rowIndex = await this.webTablePage.getRowIndexByFirstName(firstName);
+    const { salary, department } = await this.webTablePage.getUserData(rowIndex);
 
-    const data = await this.webTablePage.getUserData(rowIndex);
-
-    expect(data.salary).toBe(expectedSalary);
-    expect(data.department).toBe(expectedDepartment);
+    expect(salary).toBe(expectedSalary);
+    expect(department).toBe(expectedDepartment);
   }
 
   async searchAndVerifyUser(name: string): Promise<void> {
     await this.webTablePage.searchUser(name);
     await expect(this.webTablePage.rowByFirstName(name)).toBeVisible();
   }
+
+  async deleteRowByFirstName(firstName: string): Promise<void> {
+  await this.webTablePage.clearSearchBox();
+  const rowIndex = await this.webTablePage.getRowIndexByFirstName(firstName);
+  await this.webTablePage.deleteRowByIndex(rowIndex);
+}
 }
