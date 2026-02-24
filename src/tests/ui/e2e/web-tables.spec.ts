@@ -22,7 +22,7 @@ test.describe("[UI] [Web Tables] [E2E]", () => {
     await registrationFormModal.updateSalaryAndDepartment("150000", "Engineering");
     await registrationFormModal.clickSubmit();
 
-    await webTableUIService.verifyUserUpdated(rowIndex, "150000", "Engineering");
+    await webTableUIService.verifyUserUpdated(userData.firstName, "150000", "Engineering");
 
     // 4. delete
     await webTablePage.clearSearchBox();

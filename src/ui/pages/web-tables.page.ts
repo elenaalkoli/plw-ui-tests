@@ -100,9 +100,10 @@ export class WebTablePage extends DemoqaPage {
   @logStep("Find row index by name")
   async getRowIndexByFirstName(firstName: string): Promise<number> {
     const rowCount = await this.tableRows.count();
-    for (let i = 1; i <= rowCount; i++) {
-      if ((await this.firstNameCell(i).textContent())?.trim() === firstName) {
-        return i;
+    for (let i = 0; i < rowCount; i++) {
+      const cellText = (await this.firstNameCell(i + 1).textContent())?.trim();
+      if (cellText === firstName) {
+        return i + 1;
       }
     }
     throw new Error(`User ${firstName} not found`);

@@ -38,13 +38,12 @@ export class WebTableUIService extends BaseUIService {
   }
 
   async verifyUserUpdated(
-    rowIndex: number,
+    firstName: string,
     expectedSalary: string,
     expectedDepartment: string
   ): Promise<void> {
     await this.webTablePage.clearSearchBox();
-    await this.page.waitForTimeout(1500);
-
+    const rowIndex = await this.webTablePage.getRowIndexByFirstName(firstName);
     const data = await this.webTablePage.getUserData(rowIndex);
 
     expect(data.salary).toBe(expectedSalary);
