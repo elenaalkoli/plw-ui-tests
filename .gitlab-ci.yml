@@ -16,28 +16,28 @@ typescript-check:
 # UI tests
 ui-tests:
   stage: test
-  image: mcr.microsoft.com/playwright:v1.44.0-jammy
+  image: mcr.microsoft.com/playwright:v1.58.1-jammy
   script:
     - npm ci
     - echo "DEMOQA_BASE_URL=https://demoqa.com" > .env
-    - npx playwright install --with-deps
     - npm run test:ui
   artifacts:
+    when: always
     paths:
       - allure-results/
       - playwright-report/
     expire_in: 30 days
   parallel: 3
   cache:
+    key: ${CI_COMMIT_REF_SLUG}
     paths:
       - node_modules/
 
 # Allure
 allure-report:
   stage: report
-  image: eclipse-temurin:17-jre-alpine
+  image: node:22-alpine
   script:
-    - apk add --no-cache nodejs npm
     - npm install -g allure-commandline
     - npx allure generate allure-results/ -o allure-report --clean
   artifacts:
