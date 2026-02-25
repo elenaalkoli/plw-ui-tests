@@ -38,6 +38,7 @@ allure-report:
   stage: report
   image: node:22-alpine
   script:
+    - apk add --no-cache openjdk17
     - npm install -g allure-commandline
     - npx allure generate allure-results/ -o allure-report --clean
   artifacts:
