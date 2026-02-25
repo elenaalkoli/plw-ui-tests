@@ -36,7 +36,7 @@ ui-tests:
 # Allure
 allure-report:
   stage: report
-  image: openjdk:17-jdk
+  image: node:22-alpine
   script:
     - npm install -g allure-commandline
     - npx allure generate allure-results/ -o allure-report --clean
