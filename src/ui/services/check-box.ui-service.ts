@@ -1,7 +1,6 @@
 import { expect, Page } from "@playwright/test";
 import { CheckBoxPage } from "../pages/check-box.page";
 import { BaseUIService } from "./base.ui-service";
-import { UI_ROUTES } from "config/ui-routes";
 
 export class CheckBoxUIService extends BaseUIService {
   private readonly checkBoxPage: CheckBoxPage;

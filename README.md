@@ -110,14 +110,18 @@ npm run prettier:write
 │   │   └── checkbox.page.ts
 │   ├── services/           # UI Services
 │   │   └── checkbox-ui.service.ts
+│   ├── fixtures/           # Playwright fixtures (create pages and services for tests)
+│   │   └── ui.fixtures.ts
 │   ├── tests/              # Test files (*.spec.ts)
 │   │   └── checkbox.spec.ts
-│   └── config/
-│       └── ui-routes.ts
+│   └── config/             # Environment variables.
+│       └── env.ts
 ├── playwright.config.ts
 ├── package.json
 └── .env
 ```
+Notes:
+The project architecture allows easy expansion for other types of automation (API, UI, e2e, etc.).
 
 ### 7. CI/CD Pipeline
 

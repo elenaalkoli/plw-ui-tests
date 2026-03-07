@@ -56,8 +56,8 @@ export class WebTableUIService extends BaseUIService {
   }
 
   async deleteRowByFirstName(firstName: string): Promise<void> {
-  await this.webTablePage.clearSearchBox();
-  const rowIndex = await this.webTablePage.getRowIndexByFirstName(firstName);
-  await this.webTablePage.deleteRowByIndex(rowIndex);
-}
+    await this.webTablePage.clearSearchBox();
+    const rowIndex = await this.webTablePage.getRowIndexByFirstName(firstName);
+    await this.webTablePage.deleteRowByIndex(rowIndex);
+  }
 }

@@ -1,4 +1,4 @@
-import { logStep } from "utils/report/logStep.utils";
+import { logStep } from "data/report/logStep.utils";
 import { BaseModal } from "./base.modal";
 import { RegistrationFormData } from "data/registration-form.data";
 

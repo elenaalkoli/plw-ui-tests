@@ -1,4 +1,4 @@
-import { logStep } from "utils/report/logStep.utils";
+import { logStep } from "data/report/logStep.utils";
 import { DemoqaPage } from "./demoqa.page";
 
 export class TextBoxPage extends DemoqaPage {
@@ -22,7 +22,7 @@ export class TextBoxPage extends DemoqaPage {
   async navigateToSection(): Promise<void> {
     await this.page.locator('a[href="/elements"]').click();
     await this.page.waitForURL("**/elements");
-    await this.page.locator('#item-0 span.text:has-text("Text Box")').click(); // Text Box
+    await this.page.locator('#item-0 span.text:has-text("Text Box")').click();
   }
 
   @logStep("Click Submit button")
