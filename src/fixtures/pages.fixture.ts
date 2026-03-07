@@ -8,19 +8,17 @@ import { RegistrationFormModal } from "ui/pages/registration-form-modal.page";
 import { WebTableUIService } from "ui/services/web-table.ui-service";
 
 export interface UIPages {
-  //pages
   textBoxPage: TextBoxPage;
   checkBoxPage: CheckBoxPage;
   webTablePage: WebTablePage;
   registrationFormModal: RegistrationFormModal;
-  //ui-services
+
   textBoxUIService: TextBoxUIService;
   checkBoxUIService: CheckBoxUIService;
   webTableUIService: WebTableUIService;
 }
 
 export const test = base.extend<UIPages>({
-  //pages
   textBoxPage: async ({ page }, use) => {
     await use(new TextBoxPage(page));
   },
@@ -34,7 +32,6 @@ export const test = base.extend<UIPages>({
     await use(new RegistrationFormModal(page));
   },
 
-  //ui-services
   textBoxUIService: async ({ page }, use) => {
     await use(new TextBoxUIService(page));
   },

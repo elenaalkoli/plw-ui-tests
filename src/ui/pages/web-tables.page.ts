@@ -1,7 +1,15 @@
 import { Locator, expect } from "@playwright/test";
 import { DemoqaPage } from "./demoqa.page";
-import { logStep } from "utils/report/logStep.utils";
+import { logStep } from "data/report/logStep.utils";
 
+export interface WebTableUser {
+  firstName: string
+  lastName: string
+  age: string
+  email: string
+  salary: string
+  department: string
+} 
 export class WebTablePage extends DemoqaPage {
   readonly title = this.page.locator("h1.text-center:has-text('Web Tables')");
   readonly addButton = this.page.locator("#addNewRecordButton");
@@ -15,7 +23,7 @@ export class WebTablePage extends DemoqaPage {
   async navigateToSection(): Promise<void> {
     await this.page.locator('a[href="/elements"]').click();
     await this.page.waitForURL("**/elements");
-    await this.page.locator('#item-3 span.text:has-text("Web Tables")').click(); // Web Tables
+    await this.page.locator('#item-3 span.text:has-text("Web Tables")').click();
 
     await this.removeOverlays();
   }
@@ -78,7 +86,7 @@ export class WebTablePage extends DemoqaPage {
   }
 
   @logStep("Get user data row {rowIndex}")
-  async getUserData(rowIndex: number) {
+  async getUserData(rowIndex: number): Promise<WebTableUser> {
     const row = this.tableRows.nth(rowIndex - 1);
     const cells = row.locator("td");
 

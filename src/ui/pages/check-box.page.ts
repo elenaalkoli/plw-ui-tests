@@ -1,5 +1,5 @@
 import { DemoqaPage } from "./demoqa.page";
-import { logStep } from "utils/report/logStep.utils";
+import { logStep } from "data/report/logStep.utils";
 
 export class CheckBoxPage extends DemoqaPage {
   readonly title = this.page.locator("h1.text-center:has-text('Check Box')");
@@ -8,11 +8,11 @@ export class CheckBoxPage extends DemoqaPage {
 
   readonly uniqueElement = this.title;
 
-  @logStep("Navigate to Text Box section")
+  @logStep("Navigate to Check Box section")
   async navigateToSection(): Promise<void> {
     await this.page.locator('a[href="/elements"]').click();
     await this.page.waitForURL("**/elements");
-    await this.page.locator('#item-1 span:has-text("Check Box")').click(); // Text Box
+    await this.page.locator('#item-1 span:has-text("Check Box")').click();
   }
 
   @logStep("Expand all tree nodes")
@@ -44,6 +44,10 @@ export class CheckBoxPage extends DemoqaPage {
   @logStep("Get check result")
   async getResultText(): Promise<string> {
     await this.result.waitFor({ state: "visible", timeout: 5000 });
-    return (await this.result.textContent()) ?? "";
+    const text = await this.result.textContent();
+    if (!text) {
+      throw new Error("Result text is empty or null");
+    }
+    return text;
   }
 }
