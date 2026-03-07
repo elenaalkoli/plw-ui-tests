@@ -105,16 +105,19 @@ npm run prettier:write
 ```
 .
 ├── src/
-│   ├── pages/              # Page Objects
-│   │   ├── demoqa.page.ts
-│   │   └── checkbox.page.ts
-│   ├── services/           # UI Services
-│   │   └── checkbox-ui.service.ts
-│   ├── fixtures/           # Playwright fixtures (create pages and services for tests)
+│   ├── ui/
+│   │   ├── pages/          # Page Objects
+│   │   │   ├── demoqa.page.ts
+│   │   │   └── text-box.page.ts
+│   │   ├── services/       # UI Services
+│   │   │   └── text-box.ui-service.ts
+│   ├── data/               # Test data generators and interfaces
+│   │   └── text-box.data.ts
+│   ├── fixtures/           # Playwright fixtures (create pages & services for tests)
 │   │   └── ui.fixtures.ts
 │   ├── tests/              # Test files (*.spec.ts)
-│   │   └── checkbox.spec.ts
-│   └── config/             # Environment variables.
+│   │   └── text-box.spec.ts
+│   └── config/             # Environment variables
 │       └── env.ts
 ├── playwright.config.ts
 ├── package.json
