@@ -130,7 +130,8 @@ npm run prettier:write
 │   ├── fixtures/           # Playwright fixtures (create pages & services for tests)
 │   │   └── ui.fixtures.ts
 │   ├── tests/              # Test files (*.spec.ts)
-│   │   └── text-box.spec.ts
+│   │   ├── ui/             # UI-level tests
+│   │   │   ├── check-box.spec.ts
 │   └── config/             # Environment variables
 │       └── env.ts
 ├── playwright.config.ts
