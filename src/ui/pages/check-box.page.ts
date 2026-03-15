@@ -1,18 +1,25 @@
 import { DemoqaPage } from "./demoqa.page";
 import { logStep } from "data/report/logStep.utils";
+import { TIMEOUTS } from "config/timeouts";
+import { URLS } from "config/urls";
+import { SELECTORS } from "config/selectors";
 
 export class CheckBoxPage extends DemoqaPage {
   readonly title = this.page.locator("h1.text-center:has-text('Check Box')");
   readonly tree = this.page.locator(".rc-tree-list");
   readonly result = this.page.locator("#result");
+  readonly elementsMenu = this.page.locator(SELECTORS.ELEMENTS_MENU);
+  readonly checkboxItem = this.page.locator(SELECTORS.CHECKBOX_ITEM);
+  readonly closedTreeNodes = this.page.locator("span.rc-tree-switcher_close");
+  readonly checkboxByName = (name: string) => this.page.locator(`span[aria-label="Select ${name}"]`);
 
   readonly uniqueElement = this.title;
 
   @logStep("Navigate to Check Box section")
   async navigateToSection(): Promise<void> {
-    await this.page.locator('a[href="/elements"]').click();
-    await this.page.waitForURL("**/elements");
-    await this.page.locator('#item-1 span:has-text("Check Box")').click();
+    await this.elementsMenu.click();
+    await this.page.waitForURL(`${URLS.ELEMENTS}**`, { timeout: TIMEOUTS.PAGE.NAVIGATION });
+    await this.checkboxItem.click();
   }
 
   @logStep("Expand all tree nodes")
@@ -20,12 +27,12 @@ export class CheckBoxPage extends DemoqaPage {
     let hasClosedNodes = true;
 
     while (hasClosedNodes) {
-      const closedNodes = this.page.locator("span.rc-tree-switcher_close");
-      hasClosedNodes = (await closedNodes.count()) > 0;
+      hasClosedNodes = (await this.closedTreeNodes.count()) > 0;
 
       if (hasClosedNodes) {
-        await closedNodes.first().click();
-        await this.page.waitForTimeout(300);
+        await this.closedTreeNodes.first().click();
+        // small delay to allow tree node to expand before next iteration
+        await this.page.waitForTimeout(TIMEOUTS.SMALL_DELAY);
       }
     }
   }
@@ -34,16 +41,16 @@ export class CheckBoxPage extends DemoqaPage {
   async selectCheckbox(name: string) {
     await this.expandAllTree();
 
-    const checkbox = this.page.locator(`span[aria-label="Select ${name}"]`);
+    const checkbox = this.checkboxByName(name);
     await checkbox.scrollIntoViewIfNeeded();
     await checkbox.click();
 
-    await this.result.waitFor({ state: "visible", timeout: 5000 });
+    await this.result.waitFor({ state: "visible", timeout: TIMEOUTS.UI.ELEMENT_VISIBLE });
   }
 
   @logStep("Get check result")
   async getResultText(): Promise<string> {
-    await this.result.waitFor({ state: "visible", timeout: 5000 });
+    await this.result.waitFor({ state: "visible", timeout: TIMEOUTS.UI.ELEMENT_VISIBLE });
     const text = await this.result.textContent();
     if (!text) {
       throw new Error("Result text is empty or null");

@@ -1,6 +1,7 @@
 import { logStep } from "data/report/logStep.utils";
 import { BaseModal } from "./base.modal";
 import { RegistrationFormData } from "data/registration-form.data";
+import { TIMEOUTS } from "config/timeouts";
 
 export class RegistrationFormModal extends BaseModal {
   readonly uniqueElement = this.page.locator("#registration-form-modal");
@@ -30,15 +31,16 @@ export class RegistrationFormModal extends BaseModal {
   async updateSalaryAndDepartment(salary: string, department: string) {
     await this.waitForOpened();
 
-    await this.salaryInput.waitFor({ state: "visible" });
-    await this.salaryInput.fill(salary, { force: true });
+    await this.salaryInput.waitFor({ state: "visible", timeout: TIMEOUTS.UI.ELEMENT_VISIBLE });
+    await this.salaryInput.fill(salary);
 
-    await this.departmentInput.waitFor({ state: "visible" });
-    await this.departmentInput.fill(department, { force: true });
+    await this.departmentInput.waitFor({ state: "visible", timeout: TIMEOUTS.UI.ELEMENT_VISIBLE });
+    await this.departmentInput.fill(department);
   }
 
   @logStep("Click Submit button")
   async clickSubmit() {
-    await this.submitButton.click({ force: true });
+    await this.submitButton.scrollIntoViewIfNeeded();
+    await this.submitButton.click();
   }
 }
