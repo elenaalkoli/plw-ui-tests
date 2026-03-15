@@ -3,13 +3,13 @@ import { DemoqaPage } from "./demoqa.page";
 import { logStep } from "data/report/logStep.utils";
 
 export interface WebTableUser {
-  firstName: string
-  lastName: string
-  age: string
-  email: string
-  salary: string
-  department: string
-} 
+  firstName: string;
+  lastName: string;
+  age: string;
+  email: string;
+  salary: string;
+  department: string;
+}
 export class WebTablePage extends DemoqaPage {
   readonly title = this.page.locator("h1.text-center:has-text('Web Tables')");
   readonly addButton = this.page.locator("#addNewRecordButton");

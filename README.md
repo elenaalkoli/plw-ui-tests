@@ -57,8 +57,22 @@ Specific project:
 ```bash
 npm run test --project=chromium
 ```
+Running Tests by Tags
+Tests use tags to define scope (Smoke, Regression, Critical Path) and level (UI, E2E, API):
 
-### 4. Reports
+Run Smoke tests:
+
+```bash
+npx playwright test --grep @ui
+```
+
+Run UI tests:
+
+```bash
+npx playwright test --grep @ui
+```
+
+### 5. Reports
 
 Playwright HTML Report:
 
@@ -123,6 +137,7 @@ npm run prettier:write
 ├── package.json
 └── .env
 ```
+
 Notes:
 The project architecture allows easy expansion for other types of automation (API, UI, e2e, etc.).
 
