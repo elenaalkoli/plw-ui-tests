@@ -2,6 +2,7 @@ import { expect, Page } from "@playwright/test";
 import { BaseUIService } from "./base.ui-service";
 import { TextBoxPage } from "../pages/text-box.page";
 import { TextBoxData, generateTextBoxData } from "../../data/text-box.data";
+import { TIMEOUTS } from "config/timeouts";
 
 export class TextBoxUIService extends BaseUIService {
   private readonly textBoxPage: TextBoxPage;
@@ -13,6 +14,7 @@ export class TextBoxUIService extends BaseUIService {
 
   async fillAndSubmitForm(data?: TextBoxData): Promise<TextBoxData> {
     const formData = data || generateTextBoxData();
+    await expect(this.textBoxPage.form).toBeVisible();
 
     await this.textBoxPage.fullNameInput.fill(formData.fullName);
     await this.textBoxPage.emailInput.fill(formData.email);
@@ -24,14 +26,13 @@ export class TextBoxUIService extends BaseUIService {
   }
 
   async verifyFormResult(expectedData: TextBoxData): Promise<void> {
-    await this.textBoxPage.output.scrollIntoViewIfNeeded();
-    await this.textBoxPage.output.waitFor({ state: "visible", timeout: 20000 });
+    await expect(this.textBoxPage.output).toBeVisible({ timeout: TIMEOUTS.UI.ELEMENT_VISIBLE });
 
-    await expect(this.textBoxPage.nameOutput).toContainText(expectedData.fullName);
-    await expect(this.textBoxPage.emailOutput).toContainText(expectedData.email);
-    await expect(this.textBoxPage.currentAddressOutput).toContainText(expectedData.currentAddress);
-    await expect(this.textBoxPage.permanentAddressOutput).toContainText(
-      expectedData.permanentAddress
-    );
+    await Promise.all([
+      expect(this.textBoxPage.nameOutput).toContainText(expectedData.fullName),
+      expect(this.textBoxPage.emailOutput).toContainText(expectedData.email),
+      expect(this.textBoxPage.currentAddressOutput).toContainText(expectedData.currentAddress),
+      expect(this.textBoxPage.permanentAddressOutput).toContainText(expectedData.permanentAddress),
+    ]);
   }
 }

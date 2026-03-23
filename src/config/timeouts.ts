@@ -1,6 +1,7 @@
 export const TIMEOUTS = {
   UI: {
     ELEMENT_VISIBLE: 15000,
+    ELEMENT_HIDDEN: 5000,
     ACTION: 10000,
   },
 

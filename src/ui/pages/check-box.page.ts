@@ -3,15 +3,18 @@ import { logStep } from "data/report/logStep.utils";
 import { TIMEOUTS } from "config/timeouts";
 import { URLS } from "config/urls";
 import { SELECTORS } from "config/selectors";
+import { expect } from "@playwright/test";
 
 export class CheckBoxPage extends DemoqaPage {
-  readonly title = this.page.locator("h1.text-center:has-text('Check Box')");
-  readonly tree = this.page.locator(".rc-tree-list");
+  readonly title = this.page.getByRole("heading", { name: "Check Box" });
   readonly result = this.page.locator("#result");
+  readonly closedTreeNodes = this.page.locator("span.rc-tree-switcher_close");
+
   readonly elementsMenu = this.page.locator(SELECTORS.ELEMENTS_MENU);
   readonly checkboxItem = this.page.locator(SELECTORS.CHECKBOX_ITEM);
-  readonly closedTreeNodes = this.page.locator("span.rc-tree-switcher_close");
-  readonly checkboxByName = (name: string) => this.page.locator(`span[aria-label="Select ${name}"]`);
+
+  readonly checkboxByName = (name: string) =>
+    this.page.locator(`span[aria-label="Select ${name}"]`);
 
   readonly uniqueElement = this.title;
 
@@ -42,19 +45,19 @@ export class CheckBoxPage extends DemoqaPage {
     await this.expandAllTree();
 
     const checkbox = this.checkboxByName(name);
-    await checkbox.scrollIntoViewIfNeeded();
+    await expect(checkbox).toBeVisible();
     await checkbox.click();
 
-    await this.result.waitFor({ state: "visible", timeout: TIMEOUTS.UI.ELEMENT_VISIBLE });
+    await expect(this.result).toBeVisible({ timeout: TIMEOUTS.UI.ELEMENT_VISIBLE });
   }
 
   @logStep("Get check result")
   async getResultText(): Promise<string> {
-    await this.result.waitFor({ state: "visible", timeout: TIMEOUTS.UI.ELEMENT_VISIBLE });
+    await expect(this.result).toBeVisible({ timeout: TIMEOUTS.UI.ELEMENT_VISIBLE });
     const text = await this.result.textContent();
-    if (!text) {
-      throw new Error("Result text is empty or null");
+    if (!text?.trim()) {
+      throw new Error("CheckBox result text is empty or contains only whitespace");
     }
-    return text;
+    return text.trim();
   }
 }

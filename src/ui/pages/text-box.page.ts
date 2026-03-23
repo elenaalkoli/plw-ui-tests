@@ -5,13 +5,13 @@ import { TIMEOUTS } from "config/timeouts";
 import { URLS } from "config/urls";
 
 export class TextBoxPage extends DemoqaPage {
-  readonly title = this.page.locator("h1.text-center:has-text('Text Box')");
+  readonly title = this.page.getByRole("heading", { name: "Text Box" });
   readonly form = this.page.locator("#userForm");
   readonly fullNameInput = this.form.locator("#userName");
   readonly emailInput = this.form.locator("#userEmail");
   readonly currentAddressInput = this.form.locator("#currentAddress");
   readonly permanentAddressInput = this.form.locator("#permanentAddress");
-  readonly submitButton = this.page.locator("#submit");
+  readonly submitButton = this.page.locator("#userForm #submit");
   readonly output = this.form.locator("#output");
 
   readonly nameOutput = this.output.locator("#name");

@@ -14,13 +14,12 @@ test.describe("[UI] [Web Tables] [E2E]", () => {
       const { firstName } = await webTableUIService.fillAndSubmitForm();
       await webTableUIService.verifyUserCreated(firstName);
 
-      // 2. seacrh
+      // 2. search
       await webTableUIService.searchAndVerifyUser(firstName);
       await webTablePage.clearSearchBox();
 
       // 3. update
-      const rowIndex = await webTablePage.getRowIndexByFirstName(firstName);
-      await webTablePage.clickEdit(rowIndex);
+      await webTablePage.clickEditByFirstName(firstName);
       await registrationFormModal.updateSalaryAndDepartment("150000", "Engineering");
       await registrationFormModal.clickSubmit();
 

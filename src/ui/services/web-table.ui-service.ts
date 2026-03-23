@@ -6,6 +6,7 @@ import {
   RegistrationFormData,
   generateRegistrationFormData,
 } from "../../data/registration-form.data";
+import { TIMEOUTS } from "config/timeouts";
 
 export class WebTableUIService extends BaseUIService {
   private readonly webTablePage: WebTablePage;
@@ -28,13 +29,22 @@ export class WebTableUIService extends BaseUIService {
   }
 
   async verifyUserCreated(firstName: string): Promise<void> {
-    await expect(this.webTablePage.rowByFirstName(firstName)).toBeVisible();
+    const row = await this.webTablePage.rowByFirstName(firstName);
+    await expect(row).toBeVisible({ timeout: TIMEOUTS.UI.ELEMENT_VISIBLE });
   }
 
   async verifyUserNotExists(firstName: string): Promise<void> {
     await this.webTablePage.clearSearchBox();
-    const userRow = this.webTablePage.rowByFirstName(firstName);
-    await expect(userRow).toHaveCount(0);
+    await expect(this.webTablePage.tableRows.first()).toBeVisible();
+
+    const rowCount = await this.webTablePage.tableRows.count();
+    for (let i = 0; i < rowCount; i++) {
+      const row = this.webTablePage.tableRows.nth(i);
+      const cellText = await this.webTablePage.firstNameCell(row).textContent();
+      if (cellText?.trim() === firstName) {
+        throw new Error(`User "${firstName}" still exists after delete in row ${i + 1}`);
+      }
+    }
   }
 
   async verifyUserUpdated(
@@ -43,8 +53,8 @@ export class WebTableUIService extends BaseUIService {
     expectedDepartment: string
   ): Promise<void> {
     await this.webTablePage.clearSearchBox();
-    const rowIndex = await this.webTablePage.getRowIndexByFirstName(firstName);
-    const { salary, department } = await this.webTablePage.getUserData(rowIndex);
+    const row = await this.webTablePage.rowByFirstName(firstName);
+    const { salary, department } = await this.webTablePage.getUserData(row);
 
     expect(salary).toBe(expectedSalary);
     expect(department).toBe(expectedDepartment);
@@ -52,12 +62,17 @@ export class WebTableUIService extends BaseUIService {
 
   async searchAndVerifyUser(name: string): Promise<void> {
     await this.webTablePage.searchUser(name);
-    await expect(this.webTablePage.rowByFirstName(name)).toBeVisible();
+    const row = await this.webTablePage.rowByFirstName(name);
+    await expect(row).toBeVisible({ timeout: TIMEOUTS.UI.ELEMENT_VISIBLE });
   }
 
   async deleteRowByFirstName(firstName: string): Promise<void> {
     await this.webTablePage.clearSearchBox();
-    const rowIndex = await this.webTablePage.getRowIndexByFirstName(firstName);
-    await this.webTablePage.deleteRowByIndex(rowIndex);
+    await this.webTablePage.deleteRowByFirstName(firstName);
+  }
+
+  async editUserByFirstName(firstName: string): Promise<void> {
+    await this.webTablePage.clearSearchBox();
+    await this.webTablePage.clickEditByFirstName(firstName);
   }
 }
