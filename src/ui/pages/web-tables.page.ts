@@ -1,6 +1,9 @@
 import { Locator, expect } from "@playwright/test";
 import { DemoqaPage } from "./demoqa.page";
 import { logStep } from "data/report/logStep.utils";
+import { SELECTORS } from "config/selectors";
+import { URLS } from "config/urls";
+import { TIMEOUTS } from "config/timeouts";
 
 export interface WebTableUser {
   firstName: string;
@@ -11,55 +14,32 @@ export interface WebTableUser {
   department: string;
 }
 export class WebTablePage extends DemoqaPage {
-  readonly title = this.page.locator("h1.text-center:has-text('Web Tables')");
+  readonly title = this.page.getByRole('heading', { name: 'Web Tables' });
   readonly addButton = this.page.locator("#addNewRecordButton");
   readonly searchBox = this.page.locator("#searchBox");
   readonly tableBody = this.page.locator("tbody");
   readonly tableRows = this.tableBody.locator("tr");
 
+  readonly elementsMenu = this.page.locator(SELECTORS.ELEMENTS_MENU);
+  readonly webTablesItem = this.page.locator(SELECTORS.WEBTABLE_ITEM);
+
+  firstNameCell = (row: Locator) => row.locator("td").nth(0);
+  lastNameCell = (row: Locator) => row.locator("td").nth(1);
+  ageCell = (row: Locator) => row.locator("td").nth(2);
+  emailCell = (row: Locator) => row.locator("td").nth(3);
+  salaryCell = (row: Locator) => row.locator("td").nth(4);
+  departmentCell = (row: Locator) => row.locator("td").nth(5);
+  editButtonInRow = (row: Locator): Locator => row.locator('[title="Edit"]');
+  deleteButtonInRow = (row: Locator): Locator => row.locator('[title="Delete"]');
+  
   readonly uniqueElement = this.title;
 
   @logStep("Navigate to Web Tables section")
   async navigateToSection(): Promise<void> {
-    await this.page.locator('a[href="/elements"]').click();
-    await this.page.waitForURL("**/elements");
-    await this.page.locator('#item-3 span.text:has-text("Web Tables")').click();
-
-    await this.removeOverlays();
+    await this.elementsMenu.click();
+    await this.page.waitForURL(`${URLS.ELEMENTS}**`, { timeout: TIMEOUTS.PAGE.NAVIGATION });
+    await this.webTablesItem.click();
   }
-
-  async removeOverlays() {
-    await this.page.evaluate(() => {
-      document
-        .querySelectorAll("#fixedban, footer, .col-12.mt-4.col-md-3")
-        .forEach(el => el.remove());
-    });
-  }
-
-  rowByFirstName = (firstName: string): Locator =>
-    this.tableRows.filter({ has: this.page.locator("td", { hasText: firstName }) });
-
-  firstNameCell(rowIndex: number): Locator {
-    return this.tableRows.nth(rowIndex - 1).locator("td:nth-child(1)");
-  }
-
-  lastNameCell(rowIndex: number): Locator {
-    return this.tableRows.nth(rowIndex - 1).locator("td:nth-child(2)");
-  }
-
-  salaryCell(rowIndex: number): Locator {
-    return this.tableRows.nth(rowIndex - 1).locator("td:nth-child(5)");
-  }
-
-  departmentCell(rowIndex: number): Locator {
-    return this.tableRows.nth(rowIndex - 1).locator("td:nth-child(6)");
-  }
-
-  editButton = (rowIndex: number): Locator =>
-    this.tableRows.nth(rowIndex - 1).locator('[title="Edit"]');
-
-  deleteButton = (rowIndex: number): Locator =>
-    this.tableRows.nth(rowIndex - 1).locator('[title="Delete"]');
 
   @logStep("Click Add button")
   async clickAdd() {
@@ -68,52 +48,58 @@ export class WebTablePage extends DemoqaPage {
 
   @logStep("Search user: {name}")
   async searchUser(name: string) {
-    await this.searchBox.clear();
     await this.searchBox.fill(name);
   }
 
-  @logStep("Click Edit row {rowIndex}")
-  async clickEdit(rowIndex: number) {
-    const button = this.editButton(rowIndex);
-    await button.waitFor({ state: "visible", timeout: 5000 });
-    await button.click();
+  @logStep("Clear search input")
+  async clearSearchBox(): Promise<void> {
+    await this.searchBox.fill("");
   }
 
-  @logStep("Click Delete row by index {rowIndex}")
-  async deleteRowByIndex(rowIndex: number) {
-    await this.deleteButton(rowIndex).click({ force: true });
-    await this.tableRows.nth(rowIndex - 1).waitFor({ state: "detached", timeout: 5000 });
-  }
-
-  @logStep("Get user data row {rowIndex}")
-  async getUserData(rowIndex: number): Promise<WebTableUser> {
-    const row = this.tableRows.nth(rowIndex - 1);
-    const cells = row.locator("td");
-
+  @logStep("Get user data from row {row}")
+  async getUserData(row: Locator): Promise<WebTableUser> {
     return {
-      firstName: (await cells.nth(0).textContent())?.trim() || "",
-      lastName: (await cells.nth(1).textContent())?.trim() || "",
-      age: (await cells.nth(2).textContent())?.trim() || "",
-      email: (await cells.nth(3).textContent())?.trim() || "",
-      salary: (await cells.nth(4).textContent())?.trim() || "",
-      department: (await cells.nth(5).textContent())?.trim() || "",
+      firstName: (await this.firstNameCell(row).textContent())?.trim() ?? "",
+      lastName: (await this.lastNameCell(row).textContent())?.trim() ?? "",
+      age: (await this.ageCell(row).textContent())?.trim() ?? "",
+      email: (await this.emailCell(row).textContent())?.trim() ?? "",
+      salary: (await this.salaryCell(row).textContent())?.trim() ?? "",
+      department: (await this.departmentCell(row).textContent())?.trim() ?? "",
     };
   }
 
-  @logStep("Clear search input")
-  clearSearchBox(): Promise<void> {
-    return this.searchBox.clear();
+  @logStep("Click Edit for user with first name {firstName}")
+  async clickEditByFirstName(firstName: string): Promise<void> {
+    const row = await this.rowByFirstName(firstName);
+    const button = this.editButtonInRow(row);
+
+    await expect(button).toBeVisible();
+    await button.click();
   }
 
-  @logStep("Find row index by name")
-  async getRowIndexByFirstName(firstName: string): Promise<number> {
+  @logStep("Click Delete for user with first name {firstName}")
+  async deleteRowByFirstName(firstName: string): Promise<void> {
+    const row = await this.rowByFirstName(firstName);
+    const button = this.deleteButtonInRow(row);
+
+    await expect(button).toBeVisible();
+    await button.click();
+  }
+
+  @logStep("Find row by first name: {firstName}")
+  async rowByFirstName(firstName: string): Promise<Locator> {
+    await expect(this.tableRows.first()).toBeVisible({ timeout: TIMEOUTS.UI.ELEMENT_VISIBLE });
     const rowCount = await this.tableRows.count();
+
     for (let i = 0; i < rowCount; i++) {
-      const cellText = (await this.firstNameCell(i + 1).textContent())?.trim();
+      const row = this.tableRows.nth(i);
+      const cellText = (await this.firstNameCell(row).textContent())?.trim();
+
       if (cellText === firstName) {
-        return i + 1;
+        return row;
       }
     }
-    throw new Error(`User ${firstName} not found`);
+
+    throw new Error(`User with first name "${firstName}" not found`);
   }
 }

@@ -57,6 +57,7 @@ Specific project:
 ```bash
 npm run test --project=chromium
 ```
+
 Running Tests by Tags
 Tests use tags to define scope (Smoke, Regression, Critical Path) and level (UI, E2E, API):
 
