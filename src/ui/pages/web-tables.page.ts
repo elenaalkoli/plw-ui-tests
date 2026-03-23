@@ -14,7 +14,7 @@ export interface WebTableUser {
   department: string;
 }
 export class WebTablePage extends DemoqaPage {
-  readonly title = this.page.getByRole('heading', { name: 'Web Tables' });
+  readonly title = this.page.getByRole("heading", { name: "Web Tables" });
   readonly addButton = this.page.locator("#addNewRecordButton");
   readonly searchBox = this.page.locator("#searchBox");
   readonly tableBody = this.page.locator("tbody");
@@ -31,7 +31,7 @@ export class WebTablePage extends DemoqaPage {
   departmentCell = (row: Locator) => row.locator("td").nth(5);
   editButtonInRow = (row: Locator): Locator => row.locator('[title="Edit"]');
   deleteButtonInRow = (row: Locator): Locator => row.locator('[title="Delete"]');
-  
+
   readonly uniqueElement = this.title;
 
   @logStep("Navigate to Web Tables section")
@@ -99,7 +99,6 @@ export class WebTablePage extends DemoqaPage {
         return row;
       }
     }
-
     throw new Error(`User with first name "${firstName}" not found`);
   }
 }
