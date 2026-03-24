@@ -6,6 +6,7 @@ import { logStep } from "data/report/logStep.utils";
 import { URLS } from "config/urls";
 
 type SectionSelector = typeof SELECTORS[keyof Omit<typeof SELECTORS, 'ELEMENTS_MENU'>];
+
 export abstract class DemoqaPage extends BasePage {
   abstract readonly uniqueElement: Locator;
   protected readonly elementsMenu = this.page.locator(SELECTORS.ELEMENTS_MENU);
