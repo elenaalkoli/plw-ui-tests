@@ -17,7 +17,6 @@ export abstract class DemoqaPage extends BasePage {
     await expect(this.uniqueElement).toBeVisible({ timeout: TIMEOUTS.UI.ELEMENT_VISIBLE });
   }
 
-  // SPA-app -> each page implements navigation to its specific section
   @logStep("Navigate to section")
   async navigateToSection(): Promise<void> {
     await this.elementsMenu.click();
