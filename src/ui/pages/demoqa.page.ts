@@ -5,10 +5,11 @@ import { SELECTORS } from "config/selectors";
 import { logStep } from "data/report/logStep.utils";
 import { URLS } from "config/urls";
 
+type SectionSelector = typeof SELECTORS[keyof Omit<typeof SELECTORS, 'ELEMENTS_MENU'>];
 export abstract class DemoqaPage extends BasePage {
   abstract readonly uniqueElement: Locator;
   protected readonly elementsMenu = this.page.locator(SELECTORS.ELEMENTS_MENU);
-  protected abstract getSectionSelector(): string;
+  protected abstract getSectionSelector(): SectionSelector;
 
   @logStep("Open demoqa.com page")
   async open(): Promise<void> {
