@@ -1,7 +1,7 @@
 import { Locator, expect } from "@playwright/test";
 import { DemoqaPage } from "./demoqa.page";
 import { logStep } from "data/report/logStep.utils";
-import { SELECTORS } from "config/selectors";
+import { SectionSelector, SELECTORS } from "config/selectors";
 import { TIMEOUTS } from "config/timeouts";
 
 export interface WebTableUser {
@@ -33,7 +33,7 @@ export class WebTablePage extends DemoqaPage {
 
   readonly uniqueElement = this.title;
 
-  protected getSectionSelector(): string {
+  protected getSectionSelector(): SectionSelector {
     return SELECTORS.WEBTABLE_ITEM;
   }
 
