@@ -1,8 +1,6 @@
 import { logStep } from "data/report/logStep.utils";
 import { DemoqaPage } from "./demoqa.page";
 import { SELECTORS } from "config/selectors";
-import { TIMEOUTS } from "config/timeouts";
-import { URLS } from "config/urls";
 
 export class TextBoxPage extends DemoqaPage {
   readonly title = this.page.getByRole("heading", { name: "Text Box" });
@@ -24,11 +22,8 @@ export class TextBoxPage extends DemoqaPage {
 
   readonly uniqueElement = this.title;
 
-  @logStep("Navigate to Text Box section")
-  async navigateToSection(): Promise<void> {
-    await this.elementsMenu.click();
-    await this.page.waitForURL(`${URLS.ELEMENTS}**`, { timeout: TIMEOUTS.PAGE.NAVIGATION });
-    await this.textBoxItem.click();
+  protected getSectionSelector(): string {
+    return SELECTORS.TEXTBOX_ITEM;
   }
 
   @logStep("Click Submit button")

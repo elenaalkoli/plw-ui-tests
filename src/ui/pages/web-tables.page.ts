@@ -2,7 +2,6 @@ import { Locator, expect } from "@playwright/test";
 import { DemoqaPage } from "./demoqa.page";
 import { logStep } from "data/report/logStep.utils";
 import { SELECTORS } from "config/selectors";
-import { URLS } from "config/urls";
 import { TIMEOUTS } from "config/timeouts";
 
 export interface WebTableUser {
@@ -34,11 +33,8 @@ export class WebTablePage extends DemoqaPage {
 
   readonly uniqueElement = this.title;
 
-  @logStep("Navigate to Web Tables section")
-  async navigateToSection(): Promise<void> {
-    await this.elementsMenu.click();
-    await this.page.waitForURL(`${URLS.ELEMENTS}**`, { timeout: TIMEOUTS.PAGE.NAVIGATION });
-    await this.webTablesItem.click();
+  protected getSectionSelector(): string {
+    return SELECTORS.WEBTABLE_ITEM;
   }
 
   @logStep("Click Add button")

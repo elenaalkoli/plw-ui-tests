@@ -1,7 +1,6 @@
 import { DemoqaPage } from "./demoqa.page";
 import { logStep } from "data/report/logStep.utils";
 import { TIMEOUTS } from "config/timeouts";
-import { URLS } from "config/urls";
 import { SELECTORS } from "config/selectors";
 import { expect } from "@playwright/test";
 
@@ -18,11 +17,8 @@ export class CheckBoxPage extends DemoqaPage {
 
   readonly uniqueElement = this.title;
 
-  @logStep("Navigate to Check Box section")
-  async navigateToSection(): Promise<void> {
-    await this.elementsMenu.click();
-    await this.page.waitForURL(`${URLS.ELEMENTS}**`, { timeout: TIMEOUTS.PAGE.NAVIGATION });
-    await this.checkboxItem.click();
+  protected getSectionSelector(): string {
+    return SELECTORS.CHECKBOX_ITEM;
   }
 
   @logStep("Expand all tree nodes")
