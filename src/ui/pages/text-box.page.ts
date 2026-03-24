@@ -1,6 +1,6 @@
 import { logStep } from "data/report/logStep.utils";
 import { DemoqaPage } from "./demoqa.page";
-import { SELECTORS } from "config/selectors";
+import { SectionSelector, SELECTORS } from "config/selectors";
 
 export class TextBoxPage extends DemoqaPage {
   readonly title = this.page.getByRole("heading", { name: "Text Box" });
@@ -22,7 +22,7 @@ export class TextBoxPage extends DemoqaPage {
 
   readonly uniqueElement = this.title;
 
-  protected getSectionSelector(): string {
+  protected getSectionSelector(): SectionSelector {
     return SELECTORS.TEXTBOX_ITEM;
   }
 

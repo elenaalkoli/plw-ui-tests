@@ -1,7 +1,7 @@
 import { DemoqaPage } from "./demoqa.page";
 import { logStep } from "data/report/logStep.utils";
 import { TIMEOUTS } from "config/timeouts";
-import { SELECTORS } from "config/selectors";
+import { SectionSelector, SELECTORS } from "config/selectors";
 import { expect } from "@playwright/test";
 
 export class CheckBoxPage extends DemoqaPage {
@@ -17,7 +17,7 @@ export class CheckBoxPage extends DemoqaPage {
 
   readonly uniqueElement = this.title;
 
-  protected getSectionSelector(): string {
+  protected getSectionSelector(): SectionSelector {
     return SELECTORS.CHECKBOX_ITEM;
   }
 
