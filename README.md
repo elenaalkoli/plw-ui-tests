@@ -1,4 +1,12 @@
 # DemoQA UI Tests
+UI automation framework for DemoQA built with Playwright and TypeScript.
+
+The project demonstrates:
+- Page Object Model (POM)
+- Service layer approach
+- Test data separation
+- Playwright fixtures
+- CI pipeline integration
 
 ## Project Setup
 
