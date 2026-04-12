@@ -1,4 +1,3 @@
-
 # Playwright
 node_modules/
 /test-results/
@@ -10,3 +9,12 @@ node_modules/
 allure-results
 allure-report
 .DS_Store
+
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+reports/
+.venv/
+venv/
+*.egg-info/
