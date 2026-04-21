@@ -1,6 +1,7 @@
 import { logStep } from "data/report/logStep.utils";
 import { DemoqaPage } from "./demoqa.page";
 import { SectionSelector, SELECTORS } from "config/selectors";
+import { URLS } from "config/urls";
 
 export class TextBoxPage extends DemoqaPage {
   readonly title = this.page.getByRole("heading", { name: "Text Box" });
@@ -24,6 +25,14 @@ export class TextBoxPage extends DemoqaPage {
 
   protected getSectionSelector(): SectionSelector {
     return SELECTORS.TEXTBOX_ITEM;
+  }
+
+  protected getMenuSelector(): string {
+    return SELECTORS.ELEMENTS_MENU;
+  }
+
+  protected getMenuUrl(): string {
+    return URLS.ELEMENTS;
   }
 
   @logStep("Click Submit button")

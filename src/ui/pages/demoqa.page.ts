@@ -7,8 +7,9 @@ import { URLS } from "config/urls";
 
 export abstract class DemoqaPage extends BasePage {
   abstract readonly uniqueElement: Locator;
-  protected readonly elementsMenu = this.page.locator(SELECTORS.ELEMENTS_MENU);
   protected abstract getSectionSelector(): SectionSelector;
+  protected abstract getMenuSelector(): string;
+  protected abstract getMenuUrl(): string;
 
   @logStep("Open demoqa.com page")
   async open(): Promise<void> {
@@ -19,8 +20,8 @@ export abstract class DemoqaPage extends BasePage {
 
   @logStep("Navigate to section")
   async navigateToSection(): Promise<void> {
-    await this.elementsMenu.click();
-    await this.page.waitForURL(`${URLS.ELEMENTS}**`, { timeout: TIMEOUTS.PAGE.NAVIGATION });
+    await this.page.locator(this.getMenuSelector()).click();
+    await this.page.waitForURL(`${this.getMenuUrl()}**`, { timeout: TIMEOUTS.PAGE.NAVIGATION });
 
     const section = this.page.locator(this.getSectionSelector());
     await section.click();

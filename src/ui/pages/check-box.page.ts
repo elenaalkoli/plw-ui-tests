@@ -3,6 +3,7 @@ import { logStep } from "data/report/logStep.utils";
 import { TIMEOUTS } from "config/timeouts";
 import { SectionSelector, SELECTORS } from "config/selectors";
 import { expect } from "@playwright/test";
+import { URLS } from "config/urls";
 
 export class CheckBoxPage extends DemoqaPage {
   readonly title = this.page.getByRole("heading", { name: "Check Box" });
@@ -19,6 +20,14 @@ export class CheckBoxPage extends DemoqaPage {
 
   protected getSectionSelector(): SectionSelector {
     return SELECTORS.CHECKBOX_ITEM;
+  }
+
+  protected getMenuSelector(): string {
+    return SELECTORS.ELEMENTS_MENU;
+  }
+
+  protected getMenuUrl(): string {
+    return URLS.ELEMENTS;
   }
 
   @logStep("Expand all tree nodes")

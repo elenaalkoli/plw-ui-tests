@@ -3,6 +3,7 @@ import { DemoqaPage } from "./demoqa.page";
 import { logStep } from "data/report/logStep.utils";
 import { SectionSelector, SELECTORS } from "config/selectors";
 import { TIMEOUTS } from "config/timeouts";
+import { URLS } from "config/urls";
 
 export interface WebTableUser {
   firstName: string;
@@ -35,6 +36,14 @@ export class WebTablePage extends DemoqaPage {
 
   protected getSectionSelector(): SectionSelector {
     return SELECTORS.WEBTABLE_ITEM;
+  }
+
+  protected getMenuSelector(): string {
+    return SELECTORS.ELEMENTS_MENU;
+  }
+
+  protected getMenuUrl(): string {
+    return URLS.ELEMENTS;
   }
 
   @logStep("Click Add button")
