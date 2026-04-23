@@ -1,11 +1,12 @@
 import { APIRequestContext } from "@playwright/test";
 import { BookData, UserCredentials } from "../data/book-store.data";
+import { API_ENDPOINTS } from "../config/api-endpoints";
 
 export class BookStoreApiClient {
   constructor(private readonly request: APIRequestContext) {}
 
   async generateToken(credentials: UserCredentials): Promise<string> {
-    const response = await this.request.post("/Account/v1/GenerateToken", {
+    const response = await this.request.post(API_ENDPOINTS.GENERATE_TOKEN, {
       data: {
         userName: credentials.username,
         password: credentials.password,
@@ -21,7 +22,7 @@ export class BookStoreApiClient {
   }
 
   async addUser(credentials: UserCredentials): Promise<void> {
-    const response = await this.request.post("/Account/v1/User", {
+    const response = await this.request.post(API_ENDPOINTS.ADD_USER, {
       data: {
         userName: credentials.username,
         password: credentials.password,
@@ -36,7 +37,7 @@ export class BookStoreApiClient {
   async authorizeUser(credentials: UserCredentials): Promise<string> {
     const token = await this.generateToken(credentials);
     
-    const response = await this.request.post("/Account/v1/Authorized", {
+    const response = await this.request.post(API_ENDPOINTS.AUTHORIZE_USER, {
       data: {
         userName: credentials.username,
         password: credentials.password,
@@ -51,7 +52,7 @@ export class BookStoreApiClient {
   }
 
   async getBooks(): Promise<BookData[]> {
-    const response = await this.request.get("/BookStore/v1/Books");
+    const response = await this.request.get(API_ENDPOINTS.GET_BOOKS);
 
     if (!response.ok()) {
       throw new Error(`Failed to get books: ${response.status()}`);
@@ -69,7 +70,7 @@ export class BookStoreApiClient {
   }
 
   async getBookByIsbn(isbn: string): Promise<BookData> {
-    const response = await this.request.get(`/BookStore/v1/Book?ISBN=${isbn}`);
+    const response = await this.request.get(API_ENDPOINTS.GET_BOOK(isbn));
 
     if (!response.ok()) {
       throw new Error(`Failed to get book: ${response.status()}`);
@@ -87,7 +88,7 @@ export class BookStoreApiClient {
   }
 
   async addBooksToUser(userId: string, isbnCollection: string[], token: string): Promise<void> {
-    const response = await this.request.post(`/BookStore/v1/Books/${userId}`, {
+    const response = await this.request.post(API_ENDPOINTS.ADD_BOOKS_TO_USER(userId), {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -103,7 +104,7 @@ export class BookStoreApiClient {
   }
 
   async getUserBooks(userId: string, token: string): Promise<BookData[]> {
-    const response = await this.request.get(`/Account/v1/User/${userId}`, {
+    const response = await this.request.get(API_ENDPOINTS.GET_USER(userId), {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -125,7 +126,7 @@ export class BookStoreApiClient {
   }
 
   async removeBookFromUser(userId: string, isbn: string, token: string): Promise<void> {
-    const response = await this.request.delete(`/BookStore/v1/Books/${userId}?ISBN=${isbn}`, {
+    const response = await this.request.delete(API_ENDPOINTS.REMOVE_BOOK_FROM_USER(userId, isbn), {
       headers: {
         Authorization: `Bearer ${token}`,
       },
