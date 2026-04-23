@@ -130,7 +130,7 @@ test.describe("[UI] [Book Store] [E2E]", () => {
     },
     async ({ loginPage, profilePage }) => {
       const credentials = {
-        username: TEST_DATA.BOOK_STORE.TEST_USERNAME,
+        username: TEST_DATA.BOOK_STORE.generateUsername(),
         password: TEST_DATA.BOOK_STORE.TEST_PASSWORD,
       };
       

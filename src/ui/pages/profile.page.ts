@@ -90,7 +90,7 @@ export class ProfilePage extends DemoqaPage {
     });
     
     await deleteButton.click();
-    await this.page.waitForTimeout(TIMEOUTS.SHORT_DELAY); // Wait for deletion to complete
+    await this.bookRows.first().waitFor({ state: 'hidden', timeout: TIMEOUTS.UI.ELEMENT_HIDDEN }).catch(() => {});
   }
 
   @logStep("Delete all books")

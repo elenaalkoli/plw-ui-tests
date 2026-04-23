@@ -55,7 +55,7 @@ export class BookStoreService {
 
     return {
       searchResults: allResults,
-      selectedBooks: allResults.slice(0, 2),
+      selectedBooks: allResults.slice(0, Math.min(2, allResults.length)),
       profileBooks: [],
     };
   }

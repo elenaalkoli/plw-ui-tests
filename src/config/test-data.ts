@@ -21,5 +21,6 @@ export const TEST_DATA = {
     EXPECTED_AUTHOR: "Addy Osmani",
     TEST_USERNAME: "testuser",
     TEST_PASSWORD: "Test@123",
+    generateUsername: () => `testuser_${Date.now()}`,
   },
 } as const;
