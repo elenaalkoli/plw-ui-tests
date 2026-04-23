@@ -15,7 +15,7 @@ export interface WebTableUser {
 }
 export class WebTablePage extends DemoqaPage {
   readonly title = this.page.getByRole("heading", { name: SELECTORS.PAGE_TITLES.WEB_TABLES });
-  readonly addButton = this.page.locator(SELECTORS.ADD_BUTTON);
+  readonly addButton = this.page.locator(SELECTORS.WEB_TABLES_ADD_BUTTON);
   readonly searchBox = this.page.locator(SELECTORS.SEARCH_BOX);
   readonly tableBody = this.page.locator(SELECTORS.TABLE_BODY);
   readonly tableRows = this.tableBody.locator(SELECTORS.TABLE_ROW);

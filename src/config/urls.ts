@@ -3,4 +3,7 @@ export const URLS = {
   ELEMENTS: "/elements",
   ALERTS: "/alertsWindows",
   INTERACTIONS: "/interaction",
+  BOOKS: "/books",
+  LOGIN: "/login",
+  PROFILE: "/profile",
 };

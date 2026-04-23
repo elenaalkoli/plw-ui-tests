@@ -3,17 +3,21 @@ import { TextBoxPage } from "../ui/pages/text-box.page";
 import { TextBoxUIService } from "ui/services/text-box.ui-service";
 import { CheckBoxPage } from "ui/pages/check-box.page";
 import { CheckBoxUIService } from "ui/services/check-box.ui-service";
-import { WebTablePage } from "ui/pages/web-tables.page";
-import { RegistrationFormModal } from "ui/pages/registration-form-modal.page";
+import { WebTablePage } from "../ui/pages/web-tables.page";
 import { WebTableUIService } from "ui/services/web-table.ui-service";
+import { RegistrationFormModal } from "ui/pages/registration-form-modal.page";
 import { BrowserWindowsPage } from "ui/pages/browser-windows.page";
 import { BrowserWindowsUIService } from "ui/services/browser-windows.ui-service";
 import { ModalDialogsPage } from "ui/pages/modal-dialogs.page";
 import { ModalDialogsUIService } from "ui/services/modal-dialogs.ui-service";
 import { SortablePage } from "ui/pages/sortable.page";
 import { SortableUIService } from "ui/services/sortable.ui-service";
-import { DraggablePage } from "ui/pages/draggable.page";
+import { DraggablePage } from "../ui/pages/draggable.page";
 import { DraggableUIService } from "ui/services/draggable.ui-service";
+import { LoginPage } from "../ui/pages/login.page";
+import { BooksPage } from "../ui/pages/books.page";
+import { ProfilePage } from "../ui/pages/profile.page";
+import { BookStoreService } from "ui/services/book-store.service";
 
 export interface UIPages {
   textBoxPage: TextBoxPage;
@@ -24,6 +28,9 @@ export interface UIPages {
   modalDialogsPage: ModalDialogsPage;
   sortablePage: SortablePage;
   draggablePage: DraggablePage;
+  loginPage: LoginPage;
+  booksPage: BooksPage;
+  profilePage: ProfilePage;
 
   textBoxUIService: TextBoxUIService;
   checkBoxUIService: CheckBoxUIService;
@@ -32,6 +39,7 @@ export interface UIPages {
   modalDialogsUIService: ModalDialogsUIService;
   sortableUIService: SortableUIService;
   draggableUIService: DraggableUIService;
+  bookStoreService: BookStoreService;
 }
 
 export const test = base.extend<UIPages>({
@@ -80,6 +88,20 @@ export const test = base.extend<UIPages>({
   },
   draggableUIService: async ({ page }, use) => {
     await use(new DraggableUIService(page));
+  },
+
+  loginPage: async ({ page }, use) => {
+    await use(new LoginPage(page));
+  },
+  booksPage: async ({ page }, use) => {
+    await use(new BooksPage(page));
+  },
+  profilePage: async ({ page }, use) => {
+    await use(new ProfilePage(page));
+  },
+
+  bookStoreService: async ({ page, request }, use) => {
+    await use(new BookStoreService(page, request));
   },
 });
 

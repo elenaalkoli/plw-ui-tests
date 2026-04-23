@@ -11,6 +11,7 @@ export const TIMEOUTS = {
   },
 
   SMALL_DELAY: 300,
+  SHORT_DELAY: 1000,
   DRAG_DELAY: 300,
   DRAG_STEPS: 20,
 } as const;

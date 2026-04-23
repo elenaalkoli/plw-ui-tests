@@ -15,4 +15,11 @@ export const TEST_DATA = {
     SALARY: "150000",
     DEPARTMENT: "Engineering",
   },
+  BOOK_STORE: {
+    SEARCH_QUERY: "JavaScript",
+    EXPECTED_BOOK_TITLE: "Learning JavaScript Design Patterns",
+    EXPECTED_AUTHOR: "Addy Osmani",
+    TEST_USERNAME: "testuser",
+    TEST_PASSWORD: "Test@123",
+  },
 } as const;

@@ -12,6 +12,35 @@ export const SELECTORS = {
   SORTABLE_ITEM: 'a[href="/sortable"]',
   DRAGGABLE_ITEM: 'a[href="/dragabble"]',
   
+  // Book Store
+  BOOKS_MENU: 'a[href="/books"]',
+  
+  // Book Store page selectors
+  SEARCH_BOX: '#searchBox',
+  LOGIN_BUTTON: '#login',
+  BOOK_ROWS: '.rt-tbody .rt-tr',
+  BOOK_TITLE_CELL: '.rt-tbody .rt-tr .rt-td:nth-child(2)',
+  BOOK_AUTHOR_CELL: '.rt-tbody .rt-tr .rt-td:nth-child(3)',
+  BOOK_PUBLISHER_CELL: '.rt-tbody .rt-tr .rt-td:nth-child(4)',
+  USERNAME_INPUT: '#userName',
+  PASSWORD_INPUT: '#password',
+  NEW_USER_BUTTON: '#newUser',
+  ERROR_MESSAGE: '#name',
+  USERNAME_LABEL: '#userName-value',
+  GO_TO_STORE_BUTTON: '#gotoStore',
+  DELETE_BOOK_BUTTON: '#delete-record-undefined',
+  NO_BOOKS_MESSAGE: '.rt-noData',
+  BOOK_STORE_SUBMIT_BUTTON: '#submit',
+  
+  // Book details selectors
+  ISBN_WRAPPER: '#ISBN-wrapper .form-control',
+  TITLE_WRAPPER: '#title-wrapper .form-control',
+  AUTHOR_WRAPPER: '#author-wrapper .form-control',
+  PUBLISHER_WRAPPER: '#publisher-wrapper .form-control',
+  PAGES_WRAPPER: '#pages-wrapper .form-control',
+  WEBSITE_WRAPPER: '#website-wrapper .form-control',
+  ADD_NEW_RECORD_BUTTON: '#addNewRecordButton',
+  
   // Page content selectors
   SAMPLE_HEADING: '#sampleHeading',
   
@@ -59,8 +88,8 @@ export const SELECTORS = {
   GRID_ITEMS: '#demo-tabpane-grid .list-group-item',
   
   // Web Tables
-  ADD_BUTTON: '#addNewRecordButton',
-  SEARCH_BOX: '#searchBox',
+  WEB_TABLES_ADD_BUTTON: '#addNewRecordButton',
+  WEB_TABLES_SEARCH_BOX: '#searchBox',
   TABLE_BODY: 'tbody',
   TABLE_ROW: 'tr',
   TABLE_CELL: 'td',
@@ -81,12 +110,20 @@ export const SELECTORS = {
   AD_CLOSE_BUTTON: '#close-fixedban',
   PARENT_SELECTOR: '..',
   
+  // Book Store
+  LOGIN_ITEM: 'a[href="/login"]',
+  BOOK_STORE_ITEM: 'a[href="/books"]',
+  PROFILE_ITEM: 'a[href="/profile"]',
+  
   // Page titles for getByRole
   PAGE_TITLES: {
     BROWSER_WINDOWS: 'Browser Windows',
+    BOOK_STORE: 'Book Store',
     CHECK_BOX: 'Check Box',
     DRAGGABLE: 'Dragabble',
+    LOGIN: 'Login',
     MODAL_DIALOGS: 'Modal Dialogs',
+    PROFILE: 'Profile',
     SORTABLE: 'Sortable',
     TEXT_BOX: 'Text Box',
     WEB_TABLES: 'Web Tables',
