@@ -1,7 +1,7 @@
 import { Locator, expect } from "@playwright/test";
 import { BasePage } from "./base.page";
 import { TIMEOUTS } from "config/timeouts";
-import { SectionSelector, SELECTORS } from "config/selectors";
+import { SectionSelector } from "config/selectors";
 import { logStep } from "data/report/logStep.utils";
 import { URLS } from "config/urls";
 

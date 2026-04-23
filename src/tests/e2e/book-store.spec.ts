@@ -13,8 +13,7 @@ test.describe("[UI] [Book Store] [E2E]", () => {
       loginPage, 
       booksPage, 
       profilePage, 
-      bookStoreService,
-      request 
+      bookStoreService
     }) => {
       // Setup test data using Builder pattern
       const setup = generateBookStoreSetup();

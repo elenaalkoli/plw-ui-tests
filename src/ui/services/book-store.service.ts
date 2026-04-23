@@ -1,4 +1,4 @@
-import { Page, APIRequestContext } from "@playwright/test";
+import { APIRequestContext } from "@playwright/test";
 import { BookStoreApiClient } from "../../api/book-store.api";
 import { BookData, UserCredentials, BookStoreResult } from "../../data/book-store.data";
 import { SearchByTitle, SearchByAuthor, SearchByPublisher } from "./search-strategy";
@@ -11,7 +11,7 @@ export class BookStoreService {
     publisher: new SearchByPublisher(),
   };
 
-  constructor(page: Page, request: APIRequestContext) {
+  constructor(request: APIRequestContext) {
     this.apiClient = new BookStoreApiClient(request);
   }
 
@@ -30,18 +30,18 @@ export class BookStoreService {
 
   async setupUserAndBooks(credentials: UserCredentials, isbnCollection: string[]): Promise<string> {
     const token = await this.apiClient.authorizeUser(credentials);
-    const userId = await this.getUserId(credentials.username, token);
+    const userId = await this.getUserId(credentials.username);
     await this.apiClient.addBooksToUser(userId, isbnCollection, token);
     return token;
   }
 
   async getUserBooks(credentials: UserCredentials, token: string): Promise<BookData[]> {
-    const userId = await this.getUserId(credentials.username, token);
+    const userId = await this.getUserId(credentials.username);
     return await this.apiClient.getUserBooks(userId, token);
   }
 
   async removeBookFromUser(credentials: UserCredentials, isbn: string, token: string): Promise<void> {
-    const userId = await this.getUserId(credentials.username, token);
+    const userId = await this.getUserId(credentials.username);
     await this.apiClient.removeBookFromUser(userId, isbn, token);
   }
 
@@ -60,7 +60,7 @@ export class BookStoreService {
     };
   }
 
-  private async getUserId(username: string, token: string): Promise<string> {
+  private async getUserId(username: string): Promise<string> {
     return `user_${Buffer.from(username).toString('base64').substring(0, 10)}`;
   }
 }

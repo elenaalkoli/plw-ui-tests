@@ -1,4 +1,4 @@
-import { APIRequestContext, APIResponse } from "@playwright/test";
+import { APIRequestContext } from "@playwright/test";
 import { BookData, UserCredentials } from "../data/book-store.data";
 
 export class BookStoreApiClient {
@@ -125,7 +125,7 @@ export class BookStoreApiClient {
   }
 
   async removeBookFromUser(userId: string, isbn: string, token: string): Promise<void> {
-    const response = await this.request.delete(`/BookStore/v1/Book?ISBN=${isbn}`, {
+    const response = await this.request.delete(`/BookStore/v1/Books/${userId}?ISBN=${isbn}`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },

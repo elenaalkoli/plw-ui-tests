@@ -100,8 +100,8 @@ export const test = base.extend<UIPages>({
     await use(new ProfilePage(page));
   },
 
-  bookStoreService: async ({ page, request }, use) => {
-    await use(new BookStoreService(page, request));
+  bookStoreService: async ({ request }, use) => {
+    await use(new BookStoreService(request));
   },
 });
 
