@@ -4,19 +4,19 @@ import { SectionSelector, SELECTORS } from "config/selectors";
 import { URLS } from "config/urls";
 
 export class TextBoxPage extends DemoqaPage {
-  readonly title = this.page.getByRole("heading", { name: "Text Box" });
-  readonly form = this.page.locator("#userForm");
-  readonly fullNameInput = this.form.locator("#userName");
-  readonly emailInput = this.form.locator("#userEmail");
-  readonly currentAddressInput = this.form.locator("#currentAddress");
-  readonly permanentAddressInput = this.form.locator("#permanentAddress");
-  readonly submitButton = this.page.locator("#userForm #submit");
-  readonly output = this.form.locator("#output");
+  readonly title = this.page.getByRole("heading", { name: SELECTORS.PAGE_TITLES.TEXT_BOX });
+  readonly form = this.page.locator(SELECTORS.USER_FORM);
+  readonly fullNameInput = this.form.locator(SELECTORS.USER_NAME);
+  readonly emailInput = this.form.locator(SELECTORS.USER_EMAIL);
+  readonly currentAddressInput = this.form.locator(SELECTORS.CURRENT_ADDRESS);
+  readonly permanentAddressInput = this.form.locator(SELECTORS.PERMANENT_ADDRESS);
+  readonly submitButton = this.page.locator(SELECTORS.USER_FORM + " " + SELECTORS.SUBMIT_BUTTON);
+  readonly output = this.form.locator(SELECTORS.OUTPUT);
 
-  readonly nameOutput = this.output.locator("#name");
-  readonly emailOutput = this.output.locator("#email");
-  readonly currentAddressOutput = this.output.locator("#currentAddress");
-  readonly permanentAddressOutput = this.output.locator("#permanentAddress");
+  readonly nameOutput = this.output.locator(SELECTORS.NAME_OUTPUT);
+  readonly emailOutput = this.output.locator(SELECTORS.EMAIL_OUTPUT);
+  readonly currentAddressOutput = this.output.locator(SELECTORS.CURRENT_ADDRESS_OUTPUT);
+  readonly permanentAddressOutput = this.output.locator(SELECTORS.PERMANENT_ADDRESS_OUTPUT);
 
   readonly elementsMenu = this.page.locator(SELECTORS.ELEMENTS_MENU);
   readonly textBoxItem = this.page.locator(SELECTORS.TEXTBOX_ITEM);

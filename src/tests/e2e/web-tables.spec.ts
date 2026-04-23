@@ -1,4 +1,5 @@
 import { TAGS } from "data/tags";
+import { TEST_DATA } from "config/test-data";
 import { test } from "../../fixtures/pages.fixture";
 
 test.describe("[UI] [Web Tables] [E2E]", () => {
@@ -20,10 +21,10 @@ test.describe("[UI] [Web Tables] [E2E]", () => {
 
       // 3. update
       await webTablePage.clickEditByFirstName(firstName);
-      await registrationFormModal.updateSalaryAndDepartment("150000", "Engineering");
+      await registrationFormModal.updateSalaryAndDepartment(TEST_DATA.WEB_TABLES.SALARY, TEST_DATA.WEB_TABLES.DEPARTMENT);
       await registrationFormModal.clickSubmit();
 
-      await webTableUIService.verifyUserUpdated(firstName, "150000", "Engineering");
+      await webTableUIService.verifyUserUpdated(firstName, TEST_DATA.WEB_TABLES.SALARY, TEST_DATA.WEB_TABLES.DEPARTMENT);
 
       // 4. delete
       await webTableUIService.deleteRowByFirstName(firstName);

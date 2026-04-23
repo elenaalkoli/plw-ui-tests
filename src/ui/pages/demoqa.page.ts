@@ -15,6 +15,7 @@ export abstract class DemoqaPage extends BasePage {
   async open(): Promise<void> {
     await this.page.goto(URLS.HOME);
     await this.navigateToSection();
+    await this.dismissAd();
     await expect(this.uniqueElement).toBeVisible({ timeout: TIMEOUTS.UI.ELEMENT_VISIBLE });
   }
 
@@ -23,6 +24,7 @@ export abstract class DemoqaPage extends BasePage {
     await this.page.locator(this.getMenuSelector()).click();
     await this.page.waitForURL(`${this.getMenuUrl()}**`, { timeout: TIMEOUTS.PAGE.NAVIGATION });
 
+    await this.dismissAd();
     const section = this.page.locator(this.getSectionSelector());
     await section.click();
   }

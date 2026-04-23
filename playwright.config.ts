@@ -36,6 +36,7 @@ export default defineConfig({
     screenshot: "only-on-failure",
     video: "on-first-retry",
     headless: true,
+    bypassCSP: true,
   },
 
   projects: [

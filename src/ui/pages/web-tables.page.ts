@@ -14,23 +14,23 @@ export interface WebTableUser {
   department: string;
 }
 export class WebTablePage extends DemoqaPage {
-  readonly title = this.page.getByRole("heading", { name: "Web Tables" });
-  readonly addButton = this.page.locator("#addNewRecordButton");
-  readonly searchBox = this.page.locator("#searchBox");
-  readonly tableBody = this.page.locator("tbody");
-  readonly tableRows = this.tableBody.locator("tr");
+  readonly title = this.page.getByRole("heading", { name: SELECTORS.PAGE_TITLES.WEB_TABLES });
+  readonly addButton = this.page.locator(SELECTORS.ADD_BUTTON);
+  readonly searchBox = this.page.locator(SELECTORS.SEARCH_BOX);
+  readonly tableBody = this.page.locator(SELECTORS.TABLE_BODY);
+  readonly tableRows = this.tableBody.locator(SELECTORS.TABLE_ROW);
 
   readonly elementsMenu = this.page.locator(SELECTORS.ELEMENTS_MENU);
   readonly webTablesItem = this.page.locator(SELECTORS.WEBTABLE_ITEM);
 
-  firstNameCell = (row: Locator) => row.locator("td").nth(0);
-  lastNameCell = (row: Locator) => row.locator("td").nth(1);
-  ageCell = (row: Locator) => row.locator("td").nth(2);
-  emailCell = (row: Locator) => row.locator("td").nth(3);
-  salaryCell = (row: Locator) => row.locator("td").nth(4);
-  departmentCell = (row: Locator) => row.locator("td").nth(5);
-  editButtonInRow = (row: Locator): Locator => row.locator('[title="Edit"]');
-  deleteButtonInRow = (row: Locator): Locator => row.locator('[title="Delete"]');
+  firstNameCell = (row: Locator) => row.locator(SELECTORS.TABLE_CELL).nth(0);
+  lastNameCell = (row: Locator) => row.locator(SELECTORS.TABLE_CELL).nth(1);
+  ageCell = (row: Locator) => row.locator(SELECTORS.TABLE_CELL).nth(2);
+  emailCell = (row: Locator) => row.locator(SELECTORS.TABLE_CELL).nth(3);
+  salaryCell = (row: Locator) => row.locator(SELECTORS.TABLE_CELL).nth(4);
+  departmentCell = (row: Locator) => row.locator(SELECTORS.TABLE_CELL).nth(5);
+  editButtonInRow = (row: Locator): Locator => row.locator(SELECTORS.EDIT_BUTTON);
+  deleteButtonInRow = (row: Locator): Locator => row.locator(SELECTORS.DELETE_BUTTON);
 
   readonly uniqueElement = this.title;
 

@@ -3,19 +3,20 @@ import { BaseModal } from "./base.modal";
 import { RegistrationFormData } from "data/registration-form.data";
 import { TIMEOUTS } from "config/timeouts";
 import { expect } from "@playwright/test";
+import { SELECTORS } from "config/selectors";
 
 export class RegistrationFormModal extends BaseModal {
-  readonly uniqueElement = this.page.locator("#registration-form-modal");
+  readonly uniqueElement = this.page.locator(SELECTORS.REGISTRATION_MODAL);
 
-  readonly modalContent = this.page.locator(".modal-content");
-  readonly firstNameInput = this.modalContent.locator("#firstName");
-  readonly lastNameInput = this.modalContent.locator("#lastName");
-  readonly userEmailInput = this.modalContent.locator("#userEmail");
-  readonly ageInput = this.modalContent.locator("#age");
-  readonly salaryInput = this.modalContent.locator("#salary");
-  readonly departmentInput = this.modalContent.locator("#department");
-  readonly submitButton = this.modalContent.locator("#submit");
-  readonly closeButton = this.modalContent.locator(".close");
+  readonly modalContent = this.page.locator(SELECTORS.MODAL_CONTENT);
+  readonly firstNameInput = this.modalContent.locator(SELECTORS.FIRST_NAME);
+  readonly lastNameInput = this.modalContent.locator(SELECTORS.LAST_NAME);
+  readonly userEmailInput = this.modalContent.locator(SELECTORS.USER_EMAIL);
+  readonly ageInput = this.modalContent.locator(SELECTORS.AGE);
+  readonly salaryInput = this.modalContent.locator(SELECTORS.SALARY);
+  readonly departmentInput = this.modalContent.locator(SELECTORS.DEPARTMENT);
+  readonly submitButton = this.modalContent.locator(SELECTORS.SUBMIT_BUTTON);
+  readonly closeButton = this.modalContent.locator(SELECTORS.CLOSE_BUTTON);
 
   @logStep("Fill registration form")
   async fillForm(data: RegistrationFormData) {

@@ -6,15 +6,15 @@ import { expect } from "@playwright/test";
 import { URLS } from "config/urls";
 
 export class CheckBoxPage extends DemoqaPage {
-  readonly title = this.page.getByRole("heading", { name: "Check Box" });
-  readonly result = this.page.locator("#result");
-  readonly closedTreeNodes = this.page.locator("span.rc-tree-switcher_close");
+  readonly title = this.page.getByRole("heading", { name: SELECTORS.PAGE_TITLES.CHECK_BOX });
+  readonly result = this.page.locator(SELECTORS.RESULT);
+  readonly closedTreeNodes = this.page.locator(SELECTORS.CLOSED_TREE_NODES);
 
   readonly elementsMenu = this.page.locator(SELECTORS.ELEMENTS_MENU);
   readonly checkboxItem = this.page.locator(SELECTORS.CHECKBOX_ITEM);
 
   readonly checkboxByName = (name: string) =>
-    this.page.locator(`span[aria-label="Select ${name}"]`);
+    this.page.locator(SELECTORS.CHECKBOX_TEMPLATE.replace('{name}', name));
 
   readonly uniqueElement = this.title;
 
