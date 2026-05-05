@@ -83,30 +83,31 @@ export class ProfilePage extends DemoqaPage {
   async deleteBookByTitle(title: string): Promise<void> {
     const bookRow = this.bookRows.filter({ hasText: title }).first();
     const deleteButton = bookRow.locator(SELECTORS.DELETE_BOOK_BUTTON);
-    
-    // Handle confirmation dialog
-    this.page.on('dialog', async dialog => {
+
+    this.page.once('dialog', async dialog => {
       await dialog.accept();
     });
-    
+
     await deleteButton.click();
-    await this.bookRows.first().waitFor({ state: 'hidden', timeout: TIMEOUTS.UI.ELEMENT_HIDDEN }).catch(() => {});
+    await expect(bookRow).not.toBeVisible({ timeout: TIMEOUTS.UI.ELEMENT_HIDDEN });
   }
 
   @logStep("Delete all books")
   async deleteAllBooks(): Promise<void> {
-    const rowCount = await this.bookRows.count();
-    
-    for (let i = 0; i < rowCount; i++) {
-      const deleteButton = this.bookRows.first().locator(SELECTORS.DELETE_BOOK_BUTTON);
-      
-      // Handle confirmation dialog
-      this.page.on('dialog', async dialog => {
+    let rowCount = await this.bookRows.count();
+
+    while (rowCount > 0) {
+      const firstRow = this.bookRows.first();
+      const deleteButton = firstRow.locator(SELECTORS.DELETE_BOOK_BUTTON);
+
+      this.page.once('dialog', async dialog => {
         await dialog.accept();
       });
-      
+
       await deleteButton.click();
-      await this.page.waitForTimeout(TIMEOUTS.SHORT_DELAY);
+      await expect(firstRow).not.toBeVisible({ timeout: TIMEOUTS.UI.ELEMENT_HIDDEN });
+
+      rowCount = await this.bookRows.count();
     }
   }
 
@@ -128,11 +129,10 @@ export class ProfilePage extends DemoqaPage {
 
   @logStep("Delete account")
   async deleteAccount(): Promise<void> {
-    // Handle confirmation dialog
-    this.page.on('dialog', async dialog => {
+    this.page.once('dialog', async dialog => {
       await dialog.accept();
     });
-    
+
     await this.deleteAccountButton.click();
   }
 }

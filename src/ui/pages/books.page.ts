@@ -49,8 +49,7 @@ export class BooksPage extends DemoqaPage {
   @logStep("Search books by query")
   async searchBooks(query: string): Promise<void> {
     await this.searchBox.fill(query);
-    // Wait for search to complete
-    await this.page.waitForTimeout(TIMEOUTS.SHORT_DELAY);
+    await expect(this.bookRows.first()).toBeVisible({ timeout: TIMEOUTS.UI.ELEMENT_VISIBLE });
   }
 
   @logStep("Get all visible books")
@@ -106,12 +105,10 @@ export class BooksPage extends DemoqaPage {
   @logStep("Add book to collection")
   async addBookToCollection(): Promise<void> {
     const addButton = this.page.locator(SELECTORS.ADD_NEW_RECORD_BUTTON);
-    await addButton.click();
-    
-    // Handle alert if present
-    this.page.on('dialog', async dialog => {
+    this.page.once('dialog', async dialog => {
       await dialog.accept();
     });
+    await addButton.click();
   }
 
   @logStep("Go back to book store")

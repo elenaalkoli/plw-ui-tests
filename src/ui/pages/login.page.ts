@@ -62,18 +62,17 @@ export class LoginPage extends DemoqaPage {
 
   @logStep("Get error message")
   async getErrorMessage(): Promise<string> {
-    // Check if error message is visible first
-    const isVisible = await this.errorMessage.isVisible();
-    if (!isVisible) {
-      return '';
-    }
     await this.errorMessage.waitFor({ state: 'visible', timeout: TIMEOUTS.UI.ELEMENT_VISIBLE });
     return await this.errorMessage.textContent() || '';
   }
 
   @logStep("Check if login is successful")
   async isLoginSuccessful(): Promise<boolean> {
-    // Check if we're redirected to profile page
-    return this.page.url().includes('/profile');
+    try {
+      await this.page.waitForURL('**/profile', { timeout: TIMEOUTS.UI.ELEMENT_VISIBLE });
+      return true;
+    } catch {
+      return false;
+    }
   }
 }

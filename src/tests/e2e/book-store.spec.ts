@@ -1,6 +1,6 @@
 import { TAGS } from "data/tags";
 import { TEST_DATA } from "config/test-data";
-import { test } from "../../fixtures/pages.fixture";
+import { test, expect } from "../../fixtures/pages.fixture";
 import { generateBookStoreSetup } from "data/book-store.data";
 
 test.describe("[UI] [Book Store] [E2E]", () => {
@@ -35,10 +35,8 @@ test.describe("[UI] [Book Store] [E2E]", () => {
         if (selectedBook) {
           await booksPage.clickBookByTitle(selectedBook.title);
           const bookDetails = await booksPage.getBookDetails();
-          
-          // Verify book details
-          console.log(`Selected book: ${bookDetails.title} by ${bookDetails.author}`);
-          
+          expect(bookDetails.title).toBeTruthy();
+
           // 4. Login to the application
           await booksPage.clickLoginButton();
           await loginPage.login(setup.user.username, setup.user.password);
@@ -57,19 +55,15 @@ test.describe("[UI] [Book Store] [E2E]", () => {
             book.title === selectedBook.title
           );
           
-          console.log(`Book found in profile: ${hasBookInProfile}`);
-          
           // 7. Remove book from profile
           if (hasBookInProfile) {
             await profilePage.deleteBookByTitle(selectedBook.title);
-            
-            // Verify book is removed
+
             const updatedProfileBooks = await profilePage.getProfileBooks();
-            const bookRemoved = !updatedProfileBooks.some(book => 
+            const bookRemoved = !updatedProfileBooks.some(book =>
               book.title === selectedBook.title
             );
-            
-            console.log(`Book removed from profile: ${bookRemoved}`);
+            expect(bookRemoved).toBe(true);
           }
           
           // 8. Logout
@@ -103,22 +97,19 @@ test.describe("[UI] [Book Store] [E2E]", () => {
         'author'
       );
       
-      console.log(`Title search results: ${titleResults.length}`);
-      console.log(`Author search results: ${authorResults.length}`);
-      
       // Verify search results are not empty
       if (titleResults.length > 0) {
-        const hasMatchingTitle = titleResults.some(book => 
+        const hasMatchingTitle = titleResults.some(book =>
           book.title.toLowerCase().includes(TEST_DATA.BOOK_STORE.SEARCH_QUERY.toLowerCase())
         );
-        console.log(`Title search working: ${hasMatchingTitle}`);
+        expect(hasMatchingTitle).toBe(true);
       }
-      
+
       if (authorResults.length > 0) {
-        const hasMatchingAuthor = authorResults.some(book => 
+        const hasMatchingAuthor = authorResults.some(book =>
           book.author.toLowerCase().includes(TEST_DATA.BOOK_STORE.EXPECTED_AUTHOR.toLowerCase())
         );
-        console.log(`Author search working: ${hasMatchingAuthor}`);
+        expect(hasMatchingAuthor).toBe(true);
       }
     }
   );
@@ -146,18 +137,15 @@ test.describe("[UI] [Book Store] [E2E]", () => {
         await profilePage.open();
         
         // Get username from profile
-        const profileUsername = await profilePage.getUsername();
-        console.log(`Profile username: ${profileUsername}`);
-        
-        // Check if user has books
-        const hasBooks = await profilePage.hasBooks();
-        console.log(`User has books: ${hasBooks}`);
-        
+        await profilePage.getUsername();
+
+        await profilePage.hasBooks();
+
         // Logout
         await profilePage.logout();
       } else {
         const errorMessage = await loginPage.getErrorMessage();
-        console.log(`Login failed: ${errorMessage}`);
+        expect(errorMessage).toBeTruthy();
       }
     }
   );
