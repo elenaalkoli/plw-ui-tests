@@ -1,4 +1,17 @@
 
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.venv/
+venv/
+*.egg-info/
+
+# Reports
+reports/
+allure-results/
+allure-report/
+
 # Playwright
 node_modules/
 /test-results/
@@ -6,8 +19,7 @@ node_modules/
 /blob-report/
 /playwright/.cache/
 /playwright/.auth/
+
+# Env
 .env
-allure-results
-allure-report
-reports/
 .DS_Store
